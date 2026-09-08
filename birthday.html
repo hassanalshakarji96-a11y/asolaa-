@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>عيد ميلاد سعيد يا فاطمة 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --pink-100: #fff0f3;
+      --pink-200: #ffc2d1;
+      --pink-300: #ffb3c6;
+      --pink-400: #ff8fab;
+      --pink-500: #ff6b9d;
+      --pink-600: #e05297;
+      --pink-700: #c9184a;
+      --gold: #ffd700;
+      --white: #ffffff;
+      --dark: #2d1b2e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Tajawal', 'Amiri', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #f06292 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      direction: rtl;
+    }
+
+    /* ===== STARS BACKGROUND ===== */
+    .stars-bg {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .star-dot {
+      position: absolute; width: 3px; height: 3px;
+      background: rgba(255,255,255,0.8); border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* ===== SCREENS ===== */
+    .screen {
+      min-height: 100vh; display: none; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 24px 16px; position: relative; z-index: 1;
+    }
+    .screen.active { display: flex; animation: fadeIn 0.8s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== SCREEN 1 ===== */
+    .screen-1 .greeting-text {
+      font-size: clamp(1.4rem, 5vw, 2rem); color: var(--dark);
+      line-height: 1.8; margin-bottom: 40px; font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .screen-1 .greeting-text .heart { color: var(--pink-500); font-size: 1.4em; }
+    .screen-1 .greeting-text .highlight {
+      color: var(--pink-700); font-weight: 800; font-size: 1.15em;
+    }
+
+    .btn-surprise {
+      background: linear-gradient(135deg, var(--pink-500), var(--pink-700));
+      color: white; border: none; padding: 18px 40px;
+      font-size: clamp(1rem, 3.5vw, 1.25rem); font-weight: 700;
+      border-radius: 50px; cursor: pointer; font-family: inherit;
+      box-shadow: 0 8px 30px rgba(201,24,74,0.35);
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .btn-surprise:active { transform: scale(0.95); }
+    .btn-surprise:hover { box-shadow: 0 12px 40px rgba(201,24,74,0.5); transform: translateY(-2px); }
+    .btn-surprise::after {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(transparent, rgba(255,255,255,0.2), transparent);
+      transform: rotate(45deg); animation: shimmer 2s infinite;
+    }
+    @keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+
+    /* ===== SCREEN 2 ===== */
+    .screen-2 { background: rgba(255,240,243,0.95); }
+    .screen-2 .msg-year {
+      font-size: clamp(1.3rem, 4.5vw, 1.9rem); color: var(--dark);
+      line-height: 1.9; margin-bottom: 20px; font-weight: 500;
+    }
+    .screen-2 .msg-permanent {
+      font-size: clamp(1.1rem, 3.5vw, 1.5rem); color: var(--pink-600);
+      line-height: 1.8; margin-bottom: 40px; font-weight: 700;
+    }
+    .btn-envelope {
+      background: linear-gradient(135deg, #ff6b9d, #c9184a);
+      color: white; border: none; padding: 20px 36px;
+      font-size: clamp(1.5rem, 5vw, 2rem); border-radius: 50%;
+      cursor: pointer; box-shadow: 0 8px 30px rgba(201,24,74,0.4);
+      transition: all 0.3s; width: 100px; height: 100px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-envelope:active { transform: scale(0.9); }
+
+    /* ===== SCREEN 3 (LETTER) ===== */
+    .screen-3 { background: rgba(255,245,247,0.98); padding: 30px 16px; }
+    .letter-card {
+      background: white; border-radius: 24px; padding: 32px 24px;
+      max-width: 500px; width: 100%;
+      box-shadow: 0 20px 60px rgba(201,24,74,0.15);
+      border: 2px solid var(--pink-200); position: relative; overflow: hidden;
+    }
+    .letter-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 6px; background: linear-gradient(90deg, var(--pink-400), var(--pink-700), var(--pink-400));
+    }
+    .letter-card h3 {
+      font-size: 1.4rem; color: var(--pink-700); margin-bottom: 24px;
+      font-weight: 800;
+    }
+    .letter-card p {
+      font-size: clamp(0.95rem, 3vw, 1.1rem); color: #444;
+      line-height: 2; margin-bottom: 16px; text-align: right;
+    }
+    .letter-card .heart-line {
+      font-size: 1.5rem; margin: 20px 0 10px; text-align: center;
+    }
+    .letter-card .signature {
+      font-family: 'Amiri', serif; font-size: 1.2rem;
+      color: var(--pink-600); margin-top: 20px; text-align: left;
+    }
+    .btn-cake {
+      margin-top: 30px; background: linear-gradient(135deg, var(--pink-500), #e91e63);
+      color: white; border: none; padding: 16px 32px;
+      font-size: 1.1rem; font-weight: 700; border-radius: 50px;
+      cursor: pointer; font-family: inherit;
+      box-shadow: 0 6px 20px rgba(233,30,99,0.3);
+      transition: all 0.3s;
+    }
+    .btn-cake:active { transform: scale(0.95); }
+
+    /* ===== SCREEN 4 (CAKE) ===== */
+    .screen-4 { background: rgba(255,240,243,0.97); }
+    .cake-wrapper { position: relative; margin-bottom: 30px; }
+    .cake-svg { width: 200px; height: 200px; }
+    .candle-btn {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      background: none; border: none; cursor: pointer;
+      font-size: 48px; filter: drop-shadow(0 4px 8px rgba(255,200,0,0.5));
+      transition: transform 0.3s; animation: flicker 0.8s infinite alternate;
+    }
+    .candle-btn:active { transform: translateX(-50%) scale(1.2); }
+    .candle-btn.blown { animation: none; filter: none; opacity: 0; pointer-events: none; }
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1) rotate(-3deg); }
+      100% { transform: translateX(-50%) scale(1.08) rotate(3deg); }
+    }
+    .wish-text {
+      font-size: clamp(1rem, 3.5vw, 1.2rem); color: var(--dark);
+      line-height: 1.9; margin-bottom: 16px; font-weight: 500;
+    }
+    .wish-text .pink { color: var(--pink-600); font-weight: 700; }
+    .wish-final {
+      font-size: clamp(1.2rem, 4vw, 1.5rem); color: var(--pink-700);
+      font-weight: 800; line-height: 1.8; opacity: 0;
+      transition: opacity 0.8s, transform 0.8s; transform: translateY(20px);
+    }
+    .wish-final.show { opacity: 1; transform: translateY(0); }
+    .btn-restart {
+      margin-top: 30px; background: transparent; color: var(--pink-500);
+      border: 2px solid var(--pink-400); padding: 12px 28px;
+      font-size: 1rem; font-weight: 600; border-radius: 50px;
+      cursor: pointer; font-family: inherit; transition: all 0.3s;
+    }
+    .btn-restart:hover { background: var(--pink-500); color: white; }
+
+    /* ===== CONFETTI ===== */
+    .confetti-box { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+    .confetti-piece {
+      position: absolute; width: 12px; height: 12px; top: -20px;
+      animation: confettiDrop linear forwards;
+    }
+    @keyframes confettiDrop {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ===== BALLOONS ===== */
+    .balloon {
+      position: fixed; width: 36px; height: 46px;
+      border-radius: 50% 50% 30% 30%;
+      animation: balloonFloat 5s ease-in-out infinite;
+      opacity: 0; transition: opacity 1s; z-index: 2;
+    }
+    .balloon.visible { opacity: 0.85; }
+    .balloon::after {
+      content: ''; position: absolute; bottom: -20px; left: 50%;
+      transform: translateX(-50%); width: 2px; height: 22px;
+      background: rgba(0,0,0,0.15);
+    }
+    @keyframes balloonFloat {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-25px) rotate(5deg); }
+    }
+
+    /* ===== FLOWERS ===== */
+    .flower-deco {
+      position: fixed; font-size: 24px; opacity: 0.4; pointer-events: none;
+      animation: flowerSway 4s ease-in-out infinite; z-index: 0;
+    }
+    @keyframes flowerSway {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(10deg); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .letter-card { padding: 24px 18px; }
+      .btn-surprise { padding: 16px 32px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Stars Background -->
+  <div class="stars-bg" id="starsBg"></div>
+
+  <!-- Decorative Flowers -->
+  <div class="flower-deco" style="top:10%;right:5%">🌸</div>
+  <div class="flower-deco" style="top:30%;left:8%;animation-delay:1s">🌷</div>
+  <div class="flower-deco" style="bottom:20%;right:10%;animation-delay:2s">🌺</div>
+  <div class="flower-deco" style="top:60%;left:5%;animation-delay:0.5s">💐</div>
+  <div class="flower-deco" style="bottom:10%;right:15%;animation-delay:1.5s">🌹</div>
+
+  <!-- Confetti Container -->
+  <div class="confetti-box" id="confettiBox"></div>
+
+  <!-- Balloons -->
+  <div class="balloon" id="bal1" style="right:8%;top:20%;background:#ff6b9d"></div>
+  <div class="balloon" id="bal2" style="left:10%;top:35%;background:#e91e63;animation-delay:1s"></div>
+  <div class="balloon" id="bal3" style="right:15%;top:55%;background:#ff8fab;animation-delay:0.5s"></div>
+  <div class="balloon" id="bal4" style="left:5%;top:70%;background:#c9184a;animation-delay:1.5s"></div>
+
+  <!-- ===== SCREEN 1: GREETING ===== -->
+  <div class="screen screen-1 active" id="screen1">
+    <div class="greeting-text">
+      اليوم مو يوم عادي 🤍<br>
+      اليوم اللي انولدت بيه<br>
+      أحلى إنسانة
+    </div>
+    <button class="btn-surprise" onclick="goScreen(2)">
+      ابدئي المفاجأة 🎁
+    </button>
+  </div>
+
+  <!-- ===== SCREEN 2: MESSAGE + ENVELOPE ===== -->
+  <div class="screen screen-2" id="screen2">
+    <div class="msg-year">
+      اليوم كبرتي سنة 🎂<br>
+      بس بالنسبة إلي
+    </div>
+    <div class="msg-permanent">
+      راح تبقين بنفس المكانة الحلوة دائمًا 🤍
+    </div>
+    <button class="btn-envelope" onclick="goScreen(3)" title="اضغطي لفتح الرسالة">
+      ✉️
+    </button>
+  </div>
+
+  <!-- ===== SCREEN 3: LONG LETTER ===== -->
+  <div class="screen screen-3" id="screen3">
+    <div class="letter-card">
+      <h3>كل عام وانتي بألف خير فاطمة 🤍</h3>
+
+      <p>
+        اليوم مو بس يوم ميلادج، اليوم يوم مميز لأن بيه انولدت إنسانة وجودها بحياتي صار يعنيلي هواي.
+      </p>
+      <p>
+        بصراحة ما أعرف شلون أرتب الكلام حتى أوصل لج شكد وجودج يعنيلي، بس أعرف إنج من الأشخاص اللي الواحد من يگدر يلكاهم بحياته يحافظ عليهم، لأن مو كل شخص نرتاحله ونحس وجوده قريب من القلب.
+      </p>
+      <p>
+        أحب تفاصيلج الصغيرة، طريقتج بالحچي، ضحكتج، وحتى الأشياء اللي يمكن إنتِ تعتبرينها عادية، بالنسبة إلي صارت أشياء أحبها لأن مرتبطة بيج.
+      </p>
+      <p>
+        وأتمنى بهالسنة الجديدة من عمرج تشوفين كلشي حلو تستاهليه، وتكون أيامج الجاية أهدأ وأجمل، وتتحقق كل أمنياتج حتى اللي ما حچيتي عنها لأحد.
+      </p>
+      <p>
+        وأتمنى دوم أشوفج سعيدة ومبتسمة، وما يمر عليج يوم يخليج تحسين إنج وحدج، لأن أكو شخص يتمنى لج الخير من كل قلبه ويهمه يشوفج بخير.
+      </p>
+      <p>
+        يمكن هاي الرسالة ما تكفي حتى أگول كلشي بداخلي، بس أگدر أگولج شي واحد...
+      </p>
+
+      <div class="heart-line">🤍 🤍 🤍</div>
+
+      <p style="font-weight:700;color:#c9184a;">
+        إنتِ شخص مميز عندي يا فاطمة، ووجودج بحياتي من الأشياء الحلوة اللي ما أريدها تتغير. 🤍
+      </p>
+
+      <p>
+        كل سنة وانتي بخير<br>
+        كل سنة وانتي أقرب لأحلامج<br>
+        كل سنة وضحكتج ما تفارقج<br>
+        وكل سنة تبقين فاطمة اللي أعرفها وأحب وجودها بحياتي 🤍🎂
+      </p>
+
+      <div class="signature">
+        ✨ عيد ميلاد سعيد يا فاطمة ✨<br>
+        وعسى هالسنة تكون بداية لكلشي حلو تنتظرينه
+      </div>
+    </div>
+
+    <button class="btn-cake" onclick="goScreen(4)">
+      🎂 تمني أمنية مع الكيكة
+    </button>
+  </div>
+
+  <!-- ===== SCREEN 4: CAKE ===== -->
+  <div class="screen screen-4" id="screen4">
+    <div class="cake-wrapper">
+      <svg class="cake-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Plate -->
+        <ellipse cx="100" cy="175" rx="85" ry="12" fill="#f8bbd0"/>
+        <!-- Bottom tier -->
+        <rect x="30" y="120" width="140" height="55" rx="12" fill="#ff8fab"/>
+        <rect x="30" y="120" width="140" height="18" rx="12" fill="#ffb3c6"/>
+        <!-- Top tier -->
+        <rect x="50" y="75" width="100" height="50" rx="10" fill="#ff6b9d"/>
+        <rect x="50" y="75" width="100" height="14" rx="10" fill="#ff8fab"/>
+        <!-- Drips -->
+        <circle cx="60" cy="120" r="6" fill="#ffc2d1"/>
+        <circle cx="80" cy="118" r="8" fill="#ffc2d1"/>
+        <circle cx="105" cy="121" r="5" fill="#ffc2d1"/>
+        <circle cx="130" cy="119" r="7" fill="#ffc2d1"/>
+        <circle cx="150" cy="121" r="5" fill="#ffc2d1"/>
+        <!-- Decorations -->
+        <circle cx="70" cy="100" r="3" fill="white" opacity="0.8"/>
+        <circle cx="90" cy="95" r="2.5" fill="white" opacity="0.8"/>
+        <circle cx="110" cy="100" r="3" fill="white" opacity="0.8"/>
+        <circle cx="130" cy="96" r="2.5" fill="white" opacity="0.8"/>
+        <!-- FATIMA text -->
+        <text x="100" y="158" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Tajawal,sans-serif">فاطمة</text>
+      </svg>
+      <button class="candle-btn" id="candleBtn" onclick="blowCandle()">🕯️</button>
+    </div>
+
+    <div class="wish-text" id="wishText">
+      اضغطي على الشمعة وتمني أمنية ✨
+    </div>
+
+    <div class="wish-final" id="wishFinal">
+      أتمنى كل أمنياتج تتحقق 🤍<br>
+      وكل سنة وانتي بخير<br>
+      يا أجمل هدية بهالدنيا 🤍
+    </div>
+
+    <button class="btn-restart" onclick="location.reload()">
+      🔄 اعادة المفاجأة
+    </button>
+  </div>
+
+  <script>
+    // ===== CREATE STARS =====
+    (function createStars() {
+      const bg = document.getElementById('starsBg');
+      for (let i = 0; i < 60; i++) {
+        const s = document.createElement('div');
+        s.className = 'star-dot';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.animationDuration = (2 + Math.random() * 4) + 's';
+        s.style.animationDelay = Math.random() * 3 + 's';
+        s.style.width = (2 + Math.random() * 3) + 'px';
+        s.style.height = s.style.width;
+        bg.appendChild(s);
+      }
+    })();
+
+    // ===== SCREEN NAVIGATION =====
+    function goScreen(n) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen' + n).classList.add('active');
+      window.scrollTo(0, 0);
+
+      if (n === 2) showBalloons();
+      if (n === 3) setTimeout(fireConfetti, 400);
+    }
+
+    // ===== BALLOONS =====
+    function showBalloons() {
+      for (let i = 1; i <= 4; i++) {
+        setTimeout(() => {
+          document.getElementById('bal' + i).classList.add('visible');
+        }, i * 200);
+      }
+    }
+
+    // ===== CONFETTI =====
+    function fireConfetti() {
+      const box = document.getElementById('confettiBox');
+      const colors = ['#ff6b9d','#c9184a','#ff8fab','#ffd700','#ffffff','#e91e63','#ffc2d1','#ff4081'];
+      const shapes = ['circle','square','triangle'];
+
+      for (let i = 0; i < 80; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = (Math.random() * 100) + '%';
+        piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+        piece.style.animationDelay = (Math.random() * 1.5) + 's';
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        piece.style.background = color;
+
+        if (shape === 'circle') piece.style.borderRadius = '50%';
+        else if (shape === 'triangle') {
+          piece.style.background = 'transparent';
+          piece.style.borderLeft = '6px solid transparent';
+          piece.style.borderRight = '6px solid transparent';
+          piece.style.borderBottom = '12px solid ' + color;
+          piece.style.width = '0'; piece.style.height = '0';
+        }
+        piece.style.width = (8 + Math.random() * 8) + 'px';
+        piece.style.height = (8 + Math.random() * 8) + 'px';
+
+        box.appendChild(piece);
+      }
+      setTimeout(() => { box.innerHTML = ''; }, 4000);
+    }
+
+    // ===== BLOW CANDLE =====
+    function blowCandle() {
+      const btn = document.getElementById('candleBtn');
+      if (btn.classList.contains('blown')) return;
+      btn.classList.add('blown');
+
+      fireConfetti();
+
+      setTimeout(() => {
+        document.getElementById('wishText').style.display = 'none';
+        document.getElementById('wishFinal').classList.add('show');
+      }, 600);
+    }
+  </script>
+</body>
+</html>
